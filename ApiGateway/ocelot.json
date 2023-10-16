@@ -1,0 +1,107 @@
+{
+  "Routes": [
+    //Info service
+    {
+      "UpstreamPathTemplate": "/api/Info/{controller}/{action}",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "infoservice",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Info/{controller}/{action}"
+    },
+
+    //Authentication service
+    {
+      "UpstreamPathTemplate": "/api/Authentication/{action}",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "authenticationservice",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Authentication/{action}"
+    },
+
+    //Trip service
+    {
+      "UpstreamPathTemplate": "/api/Trip/{controller}/{action}",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "DownstreamScheme": "http",
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      },
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "tripservice",
+          "Port": 80
+        },
+        {
+          "Host": "tripservice2",
+          "Port": 80
+        },
+        {
+          "Host": "tripservice3",
+          "Port": 80
+        }
+      ],
+      "AddHeadersToRequest": {
+        "X-Forwarded-Host": "{DownstreamHost}",
+        "X-Forwarded-Port": "{DownstreamPort}",
+        "X-Server-Port": "{DownstreamPort}"
+      },
+      "AddHeadersToResponse": {
+        "X-Server-Port": "{DownstreamPort}"
+      },
+      "DownstreamPathTemplate": "/api/Trip/{controller}/{action}"
+    },
+
+    //Chat service
+    {
+      "UpstreamPathTemplate": "/api/Chat/{controller}/{action}",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "chatservice",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/api/Chat/{controller}/{action}"
+    },
+    //GraphQL
+    {
+      "DownstreamPathTemplate": "/trip/graphql",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "tripservice",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/trip/graphql"
+    },
+    {
+      "DownstreamPathTemplate": "/info/graphql",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "infoservice",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/info/graphql"
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:800"
+  }
+}

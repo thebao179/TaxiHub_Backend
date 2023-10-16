@@ -1,0 +1,45 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "InfoServiceGRPC";
+
+service InfoGRPC {
+  rpc AddPassenger(AddPassengerRequest) returns (AddUserResponse);
+  rpc AddDriver(AddDriverRequest) returns (AddUserResponse);
+  rpc AddStaff(AddStaffRequest) returns (AddUserResponse);
+}
+
+message AddPassengerRequest {
+    string AccountId = 1;
+    string Phone = 2;
+    string Email = 3;
+    string Name = 4;
+    bool Gender = 5;
+}
+
+message AddDriverRequest {
+    string AccountId = 1;
+    string IdentityNumber = 2;
+    string Phone = 3;
+    string Email = 4;
+    string Name = 5;
+    bool Gender = 6;
+    bool HaveVehicleRegistered = 7;
+    string Address = 8;
+    double AverageRate = 9;
+    int32 NumberOfRate = 10;
+    int32 NumberOfTrip = 11;
+}
+
+message AddStaffRequest {
+    string AccountId = 1;
+    string IdentityNumber = 2;
+    string Phone = 3;
+    string Email = 4;
+    string Name = 5;
+    bool Gender = 6;
+    string Address = 7;
+}
+
+message AddUserResponse {
+  string Result = 1;
+}

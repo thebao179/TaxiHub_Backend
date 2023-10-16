@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "JwtTokenManager": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:52407;http://localhost:52410"
+    }
+  }
+}
